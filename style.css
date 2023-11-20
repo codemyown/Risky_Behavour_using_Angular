@@ -1,0 +1,48 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+.dashboard {
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+header {
+  border-radius: 8px 8px 0 0;
+}
+
+h1 {
+  margin: 0;
+}
+
+.card {
+  border: 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  border-radius: 8px 8px 0 0;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+.table tbody tr:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+.table-success,
+.table-success:hover {
+  background-color: rgba(40, 167, 69, 0.1);
+}
+
+.table-warning,
+.table-warning:hover {
+  background-color: rgba(255, 193, 7, 0.1);
+}

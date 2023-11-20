@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html ng-app="dashboardApp">
+
+<head>
+  <title>Monitoring Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body ng-app="dashboardApp" ng-controller="DashboardController">
+  <div class="container mt-5">
+    <div class="dashboard p-4 rounded">
+      <header class="bg-primary text-white p-4 mb-4 rounded-top">
+        <h1 class="h3">Monitoring Dashboard</h1>
+      </header>
+
+      <div class="row">
+        <!-- Add User Form -->
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              Add New User
+            </div>
+            <div class="card-body">
+              <form ng-submit="addUser()">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input type="text" class="form-control" ng-model="newUser.name" required>
+                </div>
+                <div class="form-group">
+                  <label for="status">Status</label>
+                  <select class="custom-select" ng-model="newUser.status" required>
+                    <option value="Pending">Pending</option>
+                    <option value="Completed">Completed</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Add User</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- User List -->
+        <div class="col-md-8">
+          <ul class="nav nav-tabs mb-3">
+            <li class="nav-item" ng-class="{ 'active': currentTab === 'pending' }">
+              <a class="nav-link" ng-click="changeTab('pending')">Pending</a>
+            </li>
+            <li class="nav-item" ng-class="{ 'active': currentTab === 'completed' }">
+              <a class="nav-link" ng-click="changeTab('completed')">Completed</a>
+            </li>
+          </ul>
+
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" ng-model="searchQuery" placeholder="Search">
+            <div class="input-group-append">
+              <select class="custom-select" ng-model="filter" ng-options="option for option in filterOptions">
+                <option value="">All</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="user in filteredUsers" ng-class="{ 'table-success': user.status === 'Completed', 'table-warning': user.status === 'Pending' }">
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.status }}</td>
+                  <td>
+                    <button class="btn btn-sm btn-primary" ng-click="openUpdateModal(user)">Update</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Update User Modal -->
+  <div class="modal" id="updateUserModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Update User</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form ng-submit="updateUser()">
+            <div class="form-group">
+              <label for="updateName">Name</label>
+              <input type="text" class="form-control" ng-model="selectedUser.name" required>
+            </div>
+            <div class="form-group">
+              <label for="updateStatus">Status</label>
+              <select class="custom-select" ng-model="selectedUser.status" required>
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
